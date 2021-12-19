@@ -14,6 +14,11 @@ export const Comment = (props) => {
         <div className="comment-text">
             {props.comment.body}
         </div>
+        <div className="replies">
+            {props.replies.map(reply => (
+                <Comment key={reply.id} comment={reply} replies={[]} />
+            ))}
+        </div>
       </div>
     </div>
   );
