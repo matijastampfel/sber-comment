@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAllComments } from "../backend/api";
+import { Comment } from './Comment';
 
 export const Comments = (props) => {
   const [apiComments, setApiComments] = useState([]);
@@ -17,7 +18,7 @@ export const Comments = (props) => {
       <h2 className="comments-header">Hello</h2>
       <div className="comments-body">
         {firstComments.map((apiComments)=> (
-            <div key={apiComments.id}>{apiComments.body}</div>
+        <Comment key={apiComments.id} comment={apiComments} />
         ))}
       </div>
     </div>
