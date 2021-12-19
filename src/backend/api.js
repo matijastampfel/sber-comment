@@ -45,3 +45,8 @@ export const createNewComment = async (text, parentId = null) => {
       createdAt: new Date().toISOString(),
     };
   };
+
+  export const deleteCommentApi = async () => {
+    return {};
+  };
+  

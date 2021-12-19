@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getAllComments, createNewComment } from "../backend/api";
+import {
+  getAllComments,
+  createNewComment,
+  deleteCommentApi,
+} from "../backend/api";
 import { Comment } from "./Comment";
 import { FormComment } from "./FormComment";
 
@@ -19,12 +23,23 @@ export const Comments = (props) => {
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
 
-      const addComment = (text, parentId) => {
-        createNewComment(text, parentId).then((comment) => {
-            setApiComments([comment, ...apiComments]);
-          setActiveComment(null);
-        });
-      };
+  const addComment = (text, parentId) => {
+    createNewComment(text, parentId).then((comment) => {
+      setApiComments([comment, ...apiComments]);
+      setActiveComment(null);
+    });
+  };
+
+  const deleteComment = (commentId) => {
+    if (window.confirm("This will delete your comment!")) {
+        deleteCommentApi(commentId).then(() => {
+        const updatedApiComments = apiComments.filter(
+          (backendComment) => backendComment.id !== commentId
+        );
+        setApiComments(updatedApiComments);
+      });
+    }
+  };
 
   useEffect(() => {
     getAllComments().then((data) => {
@@ -36,12 +51,19 @@ export const Comments = (props) => {
     <div className="comments-field">
       <h2 className="comments-header">Hello</h2>
       <div className="comments-header-title">Write comment</div>
-      <FormComment submitLabel = 'Write' handleSubmit={addComment}/>
+
       <div className="comments-body">
         {firstComments.map((apiComments) => (
-          <Comment key={apiComments.id} comment={apiComments} replies = {getReplies(firstComments.id)}/>
+          <Comment
+            key={apiComments.id}
+            comment={apiComments}
+            replies={getReplies(firstComments.id)}
+            currentUserId={props.currentUserId}
+            deleteComment={deleteComment}
+          />
         ))}
       </div>
+      <FormComment submitLabel="Write" handleSubmit={addComment} />
     </div>
   );
 };
