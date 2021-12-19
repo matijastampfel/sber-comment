@@ -24,26 +24,20 @@ export const Comment = (props) => {
       <div className="comment-right">
         <div className="comment-data">
           <div className="comment-author-details">{props.comment.username}</div>
-         
-            {createdAtDate} {createdAtTime}
-          </div>
-          {!isEditing && (
-            <div className="comment-text">{props.comment.body}</div>
-          )}
-          {isEditing && (
-            <FormComment
-              submitLabel="Update"
-              hasCancelButton
-              initialText={props.comment.body}
-              handleSubmit={(text) =>
-                props.updateComment(text, props.comment.id)
-              }
-              handleCancel={() => {
-                props.setActiveComment(null);
-              }}
-            />
-          )}
-       
+          {createdAtDate} {createdAtTime}
+        </div>
+        {!isEditing && <div className="comment-text">{props.comment.body}</div>}
+        {isEditing && (
+          <FormComment
+            submitLabel="Update"
+            hasCancelButton
+            initialText={props.comment.body}
+            handleSubmit={(text) => props.updateComment(text, props.comment.id)}
+            handleCancel={() => {
+              props.setActiveComment(null);
+            }}
+          />
+        )}
 
         <div className="comment-actions-button">
           <div

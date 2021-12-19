@@ -3,7 +3,7 @@ import { Comments } from "./components/Comments";
 function App() {
   return (
     <div className="App">
-      <h1>Sber Comment Assignment</h1>
+      <h1 className="main-title">SBER Comment Assignment</h1>
       <Comments currentUserId="1" />
     </div>
   );

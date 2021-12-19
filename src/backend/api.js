@@ -36,21 +36,20 @@ export const getAllComments = async () => {
 };
 
 export const createNewComment = async (text, parentId = null) => {
-    return {
-      id: Math.random().toString(36).substr(2, 9),
-      body: text,
-      parentId,
-      userId: "1",
-      username: "Jonathan",
-      createdAt: new Date().toISOString(),
-    };
+  return {
+    id: Math.random().toString(36).substr(2, 9),
+    body: text,
+    parentId,
+    userId: "1",
+    username: "Jonathan",
+    createdAt: new Date().toISOString(),
   };
+};
 
-  export const updateNewComment = async (text) => {
-    return { text };
-  };
+export const updateNewComment = async (text) => {
+  return { text };
+};
 
-  export const deleteCommentApi = async () => {
-    return {};
-  };
-  
+export const deleteCommentApi = async () => {
+  return {};
+};
