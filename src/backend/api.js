@@ -2,7 +2,7 @@ export const getAllComments = async () => {
   return [
     {
       id: "1",
-      body: "First comment",
+      body: "Life isn't about finding yourself. Life is about creating yourself.",
       username: "Mike",
       parentId: null,
       userId: "1",
@@ -10,7 +10,7 @@ export const getAllComments = async () => {
     },
     {
       id: "2",
-      body: "Second comment",
+      body: "Life is like riding a bicycle. To keep your balance, you must keep moving.",
       username: "David",
       parentId: null,
       userId: "2",
@@ -18,7 +18,7 @@ export const getAllComments = async () => {
     },
     {
       id: "3",
-      body: "First comment first child",
+      body: "Who are you to judge the life I live? I know I'm not perfect and I don't live to be but before you start pointing fingers... make sure you hands are clean!",
       username: "David",
       parentId: "1",
       userId: "2",
@@ -26,7 +26,7 @@ export const getAllComments = async () => {
     },
     {
       id: "4",
-      body: "Second comment second child",
+      body: "You only live once, but if you do it right, once is enough.",
       username: "Mike",
       parentId: "2",
       userId: "2",
@@ -44,6 +44,10 @@ export const createNewComment = async (text, parentId = null) => {
       username: "Jonathan",
       createdAt: new Date().toISOString(),
     };
+  };
+
+  export const updateNewComment = async (text) => {
+    return { text };
   };
 
   export const deleteCommentApi = async () => {

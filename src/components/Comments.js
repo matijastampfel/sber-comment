@@ -3,16 +3,18 @@ import {
   getAllComments,
   createNewComment,
   deleteCommentApi,
+  updateNewComment,
 } from "../backend/api";
 import { Comment } from "./Comment";
 import { FormComment } from "./FormComment";
 
 export const Comments = (props) => {
   const [apiComments, setApiComments] = useState([]);
+  const [activeComment, setActiveComment] = useState(null);
   const firstComments = apiComments.filter(
     (apiComments) => apiComments.parentId === null
   );
-  const [activeComment, setActiveComment] = useState(null);
+
   console.log(apiComments);
 
   const getReplies = (commentId) =>
@@ -31,7 +33,7 @@ export const Comments = (props) => {
   };
 
   const updateComment = (text, commentId) => {
-    props.updateComment(text).then(() => {
+    updateNewComment(text).then(() => {
       const updatedBackendComments = apiComments.map((backendComment) => {
         if (backendComment.id === commentId) {
           return { ...backendComment, body: text };
@@ -62,9 +64,6 @@ export const Comments = (props) => {
 
   return (
     <div className="comments-field">
-      <h2 className="comments-header">Hello</h2>
-      <div className="comments-header-title">Write comment</div>
-
       <div className="comments-body">
         {firstComments.map((apiComments) => (
           <Comment
@@ -80,6 +79,7 @@ export const Comments = (props) => {
           />
         ))}
       </div>
+      <div className="comments-header-title">Write comment</div>
       <FormComment submitLabel="Write" handleSubmit={addComment} />
     </div>
   );
