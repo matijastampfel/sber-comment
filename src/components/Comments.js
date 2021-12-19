@@ -30,9 +30,22 @@ export const Comments = (props) => {
     });
   };
 
+  const updateComment = (text, commentId) => {
+    props.updateComment(text).then(() => {
+      const updatedBackendComments = apiComments.map((backendComment) => {
+        if (backendComment.id === commentId) {
+          return { ...backendComment, body: text };
+        }
+        return backendComment;
+      });
+      setApiComments(updatedBackendComments);
+      setActiveComment(null);
+    });
+  };
+
   const deleteComment = (commentId) => {
     if (window.confirm("This will delete your comment!")) {
-        deleteCommentApi(commentId).then(() => {
+      deleteCommentApi(commentId).then(() => {
         const updatedApiComments = apiComments.filter(
           (backendComment) => backendComment.id !== commentId
         );
@@ -57,9 +70,13 @@ export const Comments = (props) => {
           <Comment
             key={apiComments.id}
             comment={apiComments}
-            replies={getReplies(firstComments.id)}
+            replies={getReplies(apiComments.id)}
             currentUserId={props.currentUserId}
             deleteComment={deleteComment}
+            activeComment={activeComment}
+            setActiveComment={setActiveComment}
+            addComment={addComment}
+            updateComment={updateComment}
           />
         ))}
       </div>
